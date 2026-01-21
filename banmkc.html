@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Account Registration</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, pink, purple);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .balance-display {
+            background: linear-gradient(135deg, yellow, orange);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .balance-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .balance-amount {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .deposit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .deposit-btn:hover {
+            background-color: #45a049;
+        }
+
+        .withdraw-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .withdraw-btn:hover {
+            background-color: #da190b;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .balance-amount {
+                font-size: 30px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Simple Banking Interface</h2>
+        
+        <div class="balance-display">
+            <div class="balance-label">Current Balance</div>
+            <div class="balance-amount">Rs <span id="balance">1000</span></div>
+        </div>
+
+        <div class="input-group">
+            <label for="amount">Enter Amount</label>
+            <input type="number" id="amount" placeholder="Enter amount" min="1">
+        </div>
+
+        <div class="button-group">
+            <button class="deposit-btn" onclick="deposit()">Deposit</button>
+            <button class="withdraw-btn" onclick="withdraw()">Withdraw</button>
+        </div>
+
+        <div id="message" class="message hidden"></div>
+    </div>
+
+    <script>
+        var balance = 1000;
+
+        function resetField() {
+            document.getElementById("amount").value = "";
+        }
+
+        function showMessage(text, type) {
+            var messageEl = document.getElementById("message");
+            messageEl.innerText = text;
+            messageEl.className = "message " + type;
+            
+            setTimeout(function() {
+                messageEl.className = "message hidden";
+            }, 3000);
+        }
+
+        function deposit() {
+            var amt = parseInt(document.getElementById("amount").value);
+            
+            if (isNaN(amt) || amt <= 0) {
+                showMessage("Please enter a valid amount to deposit", "error");
+            } else {
+                balance += amt;
+                document.getElementById("balance").innerText = balance;
+                showMessage("Successfully deposited Rs " + amt, "success");
+            }
+            resetField();
+        }
+
+        function withdraw() {
+            var amt = parseInt(document.getElementById("amount").value);
+            
+            if (isNaN(amt) || amt <= 0) {
+                showMessage("Please enter a valid amount to withdraw", "error");
+            } else if (amt > balance) {
+                showMessage("Insufficient balance. Available: Rs " + balance, "error");
+            } else {
+                balance -= amt;
+                document.getElementById("balance").innerText = balance;
+                showMessage("Successfully withdrawn Rs " + amt, "success");
+            }
+            resetField();
+        }
+    </script>
+</body>
+</html>
