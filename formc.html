@@ -3,7 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration</title>
+    <title>Student Registra<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 350px;
+            margin: 80px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #msg {
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Registration Form</h2>
+
+    <form onsubmit="return registerUser()">
+        <input type="text" id="name" placeholder="Enter Name">
+        <input type="email" id="email" placeholder="Enter Email">
+        <input type="password" id="password" placeholder="Enter Password">
+
+        <button type="submit">Register</button>
+
+        <p id="msg"></p>
+    </form>
+</div>
+
+<script>
+function registerUser() {
+    var name = document.getElementById("name").value.trim();
+    var email = document.getElementById("email").value.trim();
+    var password = document.getElementById("password").value.trim();
+    var msg = document.getElementById("msg");
+
+    if (name === "" || email === "" || password === "") {
+        msg.style.color = "red";
+        msg.innerText = "❌ Registration Failed! Please fill all fields.";
+        return false;
+    }
+
+    if (password.length < 6) {
+        msg.style.color = "red";
+        msg.innerText = "❌ Password must be at least 6 characters.";
+        return false;
+    }
+
+    msg.style.color = "green";
+    msg.innerText = "✅ Registration Successful!";
+
+    document.querySelector("form").reset();
+    return false;
+}
+</script>
+
+</body>
+</html>
+tion</title>
     <style>
         * {
             margin: 0;
