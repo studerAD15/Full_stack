@@ -184,8 +184,6 @@
             const email = document.getElementById('email').value.trim();
             const age = document.getElementById('age').value;
             const messageDiv = document.getElementById('message');
-            
-            // Validation
             if (fullName === '' || email === '' || age === '') {
                 messageDiv.textContent = '❌ Registration Failed! Please fill all fields.';
                 messageDiv.className = 'message error';
@@ -203,12 +201,8 @@
                 messageDiv.className = 'message error';
                 return;
             }
-            
-            // If all validations pass
             messageDiv.textContent = '✅ Registration Successful! Welcome ' + fullName + '!';
             messageDiv.className = 'message success';
-            
-            // Reset form after 2 seconds
             setTimeout(() => {
                 this.reset();
                 messageDiv.className = 'message';
