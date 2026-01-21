@@ -179,27 +179,36 @@
     <script>
         document.getElementById('registrationForm').addEventListener('submit', function(e) {
             e.preventDefault();
+            
             const fullName = document.getElementById('fullName').value.trim();
             const email = document.getElementById('email').value.trim();
             const age = document.getElementById('age').value;
             const messageDiv = document.getElementById('message');
+            
+            // Validation
             if (fullName === '' || email === '' || age === '') {
                 messageDiv.textContent = '❌ Registration Failed! Please fill all fields.';
                 messageDiv.className = 'message error';
                 return;
             }
+            
             if (fullName.length < 9 || fullName.length > 50) {
                 messageDiv.textContent = '❌ Registration Failed! Name must be 9 to 50 characters.';
                 messageDiv.className = 'message error';
                 return;
             }
+            
             if (age < 16 || age > 30) {
                 messageDiv.textContent = '❌ Registration Failed! Age must be between 16 and 30.';
                 messageDiv.className = 'message error';
                 return;
             }
+            
+            // If all validations pass
             messageDiv.textContent = '✅ Registration Successful! Welcome ' + fullName + '!';
             messageDiv.className = 'message success';
+            
+            // Reset form after 2 seconds
             setTimeout(() => {
                 this.reset();
                 messageDiv.className = 'message';
