@@ -2,84 +2,154 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
         body {
-            font-family: Arial;
-            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 40px 20px;
         }
 
-        .box {
-            width: 350px;
-            margin: 100px auto;
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
             background: white;
-            padding: 20px;
-            border-radius: 6px;
-            box-shadow: 0 0 10px gray;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        input, button {
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"] {
             width: 100%;
             padding: 10px;
+            margin-bottom: 5px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+
+        input:valid {
+            border-color: #4CAF50;
+        }
+
+
+        input:invalid:not(:placeholder-shown) {
+            border-color: #f44336;
+        }
+
+
+        .hint {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
             margin-top: 10px;
         }
 
-        button {
-            background: green;
-            color: white;
-            border: none;
-            cursor: pointer;
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
         }
 
-        #msg {
-            margin-top: 15px;
-            font-weight: bold;
-            text-align: center;
+
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
         }
     </style>
 </head>
-
 <body>
+    <h2>Student Registration</h2>
+    <form> 
+        <label for="fullName">Full Name:</label>
+        <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your full name"
+            pattern="[A-Za-z\s]{9,50}"
+            title="Must contain 9 to 50 letters"
+            required
+        >
+        <span class="hint">Must contain 9 to 50 letters</span>
 
-<div class="box">
-    <h2>Registration Form</h2>
-    <form id="regForm">
-        <input type="text" id="name" placeholder="Enter Name">
-        <input type="email" id="email" placeholder="Enter Email">
-        <input type="password" id="password" placeholder="Enter Password">
-        <button type="button" onclick="registerUser()">Register</button>
 
-        <p id="msg"></p>
+        <label for="email">Email:</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="student@example.com"
+            required
+        >
+        <span class="hint">Valid email required</span>
+
+
+        <label for="age">Age:</label>
+        <input
+            type="number"
+            id="age"
+            name="age"
+            placeholder="Enter your age"
+            min="16"
+            max="30"
+            required
+        >
+        <span class="hint">Age must be between 16 and 30</span>
+
+
+        <input type="submit" value="Register">
     </form>
-</div>
-
-<script>
-function registerUser() {
-    var name = document.getElementById("name").value;
-    var email = document.getElementById("email").value;
-    var password = document.getElementById("password").value;
-    var msg = document.getElementById("msg");
-
-    if (name === "" || email === "" || password === "") {
-        msg.style.color = "red";
-        msg.innerHTML = "❌ Registration Failed! Fill all fields.";
-        return;
-    }
-
-    if (password.length < 6) {
-        msg.style.color = "red";
-        msg.innerHTML = "❌ Password must be at least 6 characters.";
-        return;
-    }
-
-    msg.style.color = "green";
-    msg.innerHTML = "✅ Registration Successful!";
-
-    document.getElementById("regForm").reset();
-}
-</script>
-
 </body>
 </html>
 
