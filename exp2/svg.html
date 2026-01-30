@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SVG Circle Drawer</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f5f7fb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    /* Toolbar */
+    .toolbar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+    .color-box {
+        width: 40px;
+        height: 40px;
+        background: darkgreen;
+        border-radius: 8px;
+    }
+
+    button {
+        background: linear-gradient(135deg, #0b6b2f, #1e8f4a);
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        font-size: 18px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    /* SVG Canvas */
+    svg {
+        width: 90vw;
+        max-width: 800px;
+        height: 60vh;
+        background: white;
+        border: 2px dashed #d6d9df;
+        border-radius: 20px;
+    }
+
+    .count {
+        margin-top: 15px;
+        font-size: 22px;
+        color: #333;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Toolbar -->
+<div class="toolbar">
+    <div class="color-box"></div>
+    <button onclick="undo()">Undo</button>
+</div>
+
+<!-- SVG Canvas -->
+<svg id="canvas"></svg>
+
+<!-- Counter -->
+<div class="count">
+    Circles drawn: <span id="count">0</span>
+</div>
+
+<script>
+    const svg = document.getElementById("canvas");
+    const countText = document.getElementById("count");
+
+    let circles = [];
+
+    // Draw dark green circle on click
+    svg.addEventListener("click", function (e) {
+        const circle = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+        );
+
+        circle.setAttribute("cx", e.offsetX);
+        circle.setAttribute("cy", e.offsetY);
+        circle.setAttribute("r", 10);
+        circle.setAttribute("fill", "darkgreen");
+
+        svg.appendChild(circle);
+        circles.push(circle);
+
+        countText.innerText = circles.length;
+    });
+
+    // Undo last circle
+    function undo() {
+        if (circles.length > 0) {
+            const lastCircle = circles.pop();
+            svg.removeChild(lastCircle);
+            countText.innerText = circles.length;
+        }
+    }
+</script>
+
+</body>
+</html>
